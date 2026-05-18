@@ -2,16 +2,12 @@ package org.smartbook.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
-
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "users")
-@Inheritance(strategy = InheritanceType.JOINED)
-@DiscriminatorColumn(name = "user_type", discriminatorType = DiscriminatorType.STRING)
+@Table(name = "evaluaciones")
 @Data
-
-public class User {
+public class Evaluacion {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -20,24 +16,23 @@ public class User {
     private String nombre;
 
     @Column(nullable = false)
-    private String apellido;
-
-    @Column(nullable = false, unique = true)
-    private String email;
-
-    @Column(nullable = false)
-    private String password;
+    private String descripcion;
 
     @ManyToOne
-    @JoinColumn(name = "rol_id", nullable = false)
-    private Role role;
+    @JoinColumn(name = "curso_id", nullable = false)
+    private Curso curso;
 
+    @Column(nullable = false)
+    private LocalDateTime fecha;
+
+    @Column(nullable = false)
+    private Integer puntajeMaximo;
 
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
 
     @PrePersist
-    protected void onCreate(){
+    protected void onCreate() {
         createdAt = LocalDateTime.now();
     }
 }

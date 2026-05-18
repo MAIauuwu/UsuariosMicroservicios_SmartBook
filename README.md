@@ -1,8 +1,46 @@
-# SmartBook - Usuario Microservicio
+# SmartBook - Plataforma Educativa Completa
 
 ## 📋 Descripción
 
-Sistema de gestión de usuarios, estudiantes, docentes, apoderados, cursos, evaluaciones y notas para la plataforma SmartBook.
+Plataforma educativa completa con **Backend** (Spring Boot) y **Frontend** (React + TypeScript) para gestión de usuarios, estudiantes, docentes, apoderados, cursos, evaluaciones y notas.
+
+## 🏗️ Arquitectura
+
+```
+┌─────────────────┐     ┌─────────────────┐     ┌─────────────────┐
+│   Frontend      │────▶│   Backend       │────▶│   PostgreSQL    │
+│   React + TS    │     │   Spring Boot   │     │   Database      │
+│   Port: 3000    │     │   Port: 8080    │     │   Port: 5432    │
+└─────────────────┘     └─────────────────┘     └─────────────────┘
+```
+
+## 🚀 Quick Start
+
+### Con Docker (Recomendado)
+```bash
+docker-compose up -d
+```
+
+Accede a:
+- **Frontend**: http://localhost:3000
+- **Backend API**: http://localhost:8080
+- **Swagger UI**: http://localhost:8080/swagger-ui.html
+
+### Desarrollo Local
+
+#### Backend
+```bash
+cd ..
+./mvnw.cmd clean package
+java -jar target/auth-service-1.0-SNAPSHOT.jar
+```
+
+#### Frontend
+```bash
+cd frontend
+npm install
+npm run dev
+```
 
 ## 🏗️ Entidades del Microservicio de Usuarios
 
@@ -229,13 +267,22 @@ src/main/java/org/smartbook/
 
 ## 🛠️ Tecnologías
 
+### Backend
 - Java 21 + Spring Boot 3.3.0
 - Spring Security + JWT
 - PostgreSQL + Flyway
 - Lombok + Validation
 - OpenAPI/Swagger
-- Docker + Docker Compose
 - Maven
+
+### Frontend
+- React 18 + TypeScript
+- Vite (build tool)
+- React Router 6
+- Axios + React Query
+- TailwindCSS
+- React Hook Form + Zod
+- Lucide Icons
 
 ## 📝 Licencia
 

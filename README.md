@@ -1,20 +1,20 @@
-# SmartBook - Plataforma Educativa Completa
+# SmartBook - Microservicio de Usuarios (Backend)
 
-## 📋 Descripción
+## Descripcion
 
-Plataforma educativa completa con **Backend** (Spring Boot) y **Frontend** (React + TypeScript) para gestión de usuarios, estudiantes, docentes, apoderados, cursos, evaluaciones y notas.
+Microservicio Backend con **Spring Boot** para gestion de usuarios, estudiantes, docentes, apoderados, cursos, evaluaciones y notas.
 
-## 🏗️ Arquitectura
+## Arquitectura
 
 ```
-┌─────────────────┐     ┌─────────────────┐     ┌─────────────────┐
-│   Frontend      │────▶│   Backend       │────▶│   PostgreSQL    │
-│   React + TS    │     │   Spring Boot   │     │   Database      │
-│   Port: 3000    │     │   Port: 8080    │     │   Port: 5432    │
-└─────────────────┘     └─────────────────┘     └─────────────────┘
+┌─────────────────┐     ┌─────────────────┐
+│   Backend       │────▶│   PostgreSQL    │
+│   Spring Boot   │     │   Database      │
+│   Port: 8083    │     │   Port: 5432    │
+└─────────────────┘     └─────────────────┘
 ```
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Con Docker (Recomendado)
 ```bash
@@ -22,43 +22,8 @@ docker-compose up -d
 ```
 
 Accede a:
-- **Frontend**: http://localhost:3000
-- **Backend API**: http://localhost:8080
-- **Swagger UI**: http://localhost:8080/swagger-ui.html
-
-### Desarrollo Local
-
-#### Backend
-```bash
-cd ..
-./mvnw.cmd clean package
-java -jar target/auth-service-1.0-SNAPSHOT.jar
-```
-
-#### Frontend
-```bash
-cd frontend
-npm install
-npm run dev
-```
-
-## 🏗️ Entidades del Microservicio de Usuarios
-
-| Entidad | Descripción |
-|---------|-------------|
-| **User** | Usuario base del sistema (login, autenticación) |
-| **Role** | Roles del sistema (ADMINISTRADOR, DOCENTE, ESTUDIANTE, APODERADO) |
-| **Estudiante** | Extiende de User - Alumnos con matrícula y curso |
-| **Docente** | Extiende de User - Profesores con colegiatura y especialidad |
-| **Apoderado** | Extiende de User - Padres/tutores con parentesco y documento |
-| **Perfil** | Información adicional de cualquier usuario (biografía, foto, contacto) |
-
-## 🚀 Quick Start
-
-### Con Docker (Recomendado)
-```bash
-docker-compose up -d
-```
+- **Backend API**: http://localhost:8083
+- **Swagger UI**: http://localhost:8083/swagger-ui.html
 
 ### Local (Requiere PostgreSQL)
 ```bash
@@ -70,150 +35,160 @@ createdb smartbook_db
 java -jar target/auth-service-1.0-SNAPSHOT.jar
 ```
 
-## 📚 Documentación API
+## Entidades del Microservicio de Usuarios
+
+| Entidad | Descripcion |
+|---------|-------------|
+| **User** | Usuario base del sistema (login, autenticacion) |
+| **Role** | Roles del sistema (ADMINISTRADOR, DOCENTE, ESTUDIANTE, APODERADO) |
+| **Estudiante** | Extiende de User - Alumnos con matricula y curso |
+| **Docente** | Extiende de User - Profesores con colegiatura y especialidad |
+| **Apoderado** | Extiende de User - Padres/tutores con parentesco y documento |
+| **Perfil** | Informacion adicional de cualquier usuario (biografia, foto, contacto) |
+
+## Documentacion API
 
 ### Swagger UI
-Una vez ejecutando la aplicación:
 ```
-http://localhost:8080/swagger-ui.html
+http://localhost:8083/swagger-ui.html
 ```
 
 ### Endpoints principales
 
-#### 🔐 Autenticación
-| Método | Ruta | Descripción | Auth |
+#### Autenticacion
+| Metodo | Ruta | Descripcion | Auth |
 |--------|------|-------------|------|
-| POST | `/api/auth/register` | Registrar usuario | ❌ |
-| POST | `/api/auth/login` | Iniciar sesión | ❌ |
+| POST | `/api/auth/register` | Registrar usuario | No |
+| POST | `/api/auth/login` | Iniciar sesion | No |
 
-#### 👤 Usuarios
-| Método | Ruta | Descripción | Auth |
+#### Usuarios
+| Metodo | Ruta | Descripcion | Auth |
 |--------|------|-------------|------|
-| GET | `/api/users` | Listar usuarios | ✅ |
-| POST | `/api/users` | Crear usuario | ✅ |
-| GET | `/api/users/{id}` | Obtener usuario por ID | ✅ |
-| GET | `/api/users/email/{email}` | Obtener usuario por email | ✅ |
-| PUT | `/api/users/{id}` | Actualizar usuario | ✅ |
-| DELETE | `/api/users/{id}` | Eliminar usuario | ✅ |
+| GET | `/api/users` | Listar usuarios | Si |
+| POST | `/api/users` | Crear usuario | Si |
+| GET | `/api/users/{id}` | Obtener usuario por ID | Si |
+| GET | `/api/users/email/{email}` | Obtener usuario por email | Si |
+| PUT | `/api/users/{id}` | Actualizar usuario | Si |
+| DELETE | `/api/users/{id}` | Eliminar usuario | Si |
 
-#### 🎭 Roles
-| Método | Ruta | Descripción | Auth |
+#### Roles
+| Metodo | Ruta | Descripcion | Auth |
 |--------|------|-------------|------|
-| GET | `/api/roles` | Listar roles | ✅ |
-| POST | `/api/roles` | Crear rol | ✅ |
-| PUT | `/api/roles/{id}` | Actualizar rol | ✅ |
-| DELETE | `/api/roles/{id}` | Eliminar rol | ✅ |
+| GET | `/api/roles` | Listar roles | Si |
+| POST | `/api/roles` | Crear rol | Si |
+| PUT | `/api/roles/{id}` | Actualizar rol | Si |
+| DELETE | `/api/roles/{id}` | Eliminar rol | Si |
 
-#### 🎓 Estudiantes
-| Método | Ruta | Descripción | Auth |
+#### Estudiantes
+| Metodo | Ruta | Descripcion | Auth |
 |--------|------|-------------|------|
-| GET | `/api/estudiantes` | Listar estudiantes | ✅ |
-| POST | `/api/estudiantes` | Crear estudiante | ✅ |
-| GET | `/api/estudiantes/{id}` | Obtener por ID | ✅ |
-| GET | `/api/estudiantes/matricula/{matricula}` | Obtener por matrícula | ✅ |
-| GET | `/api/estudiantes/curso/{cursoId}` | Obtener por curso | ✅ |
-| PUT | `/api/estudiantes/{id}` | Actualizar estudiante | ✅ |
-| DELETE | `/api/estudiantes/{id}` | Eliminar estudiante | ✅ |
+| GET | `/api/estudiantes` | Listar estudiantes | Si |
+| POST | `/api/estudiantes` | Crear estudiante | Si |
+| GET | `/api/estudiantes/{id}` | Obtener por ID | Si |
+| GET | `/api/estudiantes/matricula/{matricula}` | Obtener por matricula | Si |
+| GET | `/api/estudiantes/curso/{cursoId}` | Obtener por curso | Si |
+| PUT | `/api/estudiantes/{id}` | Actualizar estudiante | Si |
+| DELETE | `/api/estudiantes/{id}` | Eliminar estudiante | Si |
 
-#### 👨‍🏫 Docentes
-| Método | Ruta | Descripción | Auth |
+#### Docentes
+| Metodo | Ruta | Descripcion | Auth |
 |--------|------|-------------|------|
-| GET | `/api/docentes` | Listar docentes | ✅ |
-| POST | `/api/docentes` | Crear docente | ✅ |
-| GET | `/api/docentes/{id}` | Obtener por ID | ✅ |
-| GET | `/api/docentes/colegiatura/{numero}` | Obtener por colegiatura | ✅ |
-| GET | `/api/docentes/especialidad/{especialidad}` | Obtener por especialidad | ✅ |
-| PUT | `/api/docentes/{id}` | Actualizar docente | ✅ |
-| DELETE | `/api/docentes/{id}` | Eliminar docente | ✅ |
+| GET | `/api/docentes` | Listar docentes | Si |
+| POST | `/api/docentes` | Crear docente | Si |
+| GET | `/api/docentes/{id}` | Obtener por ID | Si |
+| GET | `/api/docentes/colegiatura/{numero}` | Obtener por colegiatura | Si |
+| GET | `/api/docentes/especialidad/{especialidad}` | Obtener por especialidad | Si |
+| PUT | `/api/docentes/{id}` | Actualizar docente | Si |
+| DELETE | `/api/docentes/{id}` | Eliminar docente | Si |
 
-#### 👨‍👩‍👧 Apoderados
-| Método | Ruta | Descripción | Auth |
+#### Apoderados
+| Metodo | Ruta | Descripcion | Auth |
 |--------|------|-------------|------|
-| GET | `/api/apoderados` | Listar apoderados | ✅ |
-| POST | `/api/apoderados` | Crear apoderado | ✅ |
-| GET | `/api/apoderados/{id}` | Obtener por ID | ✅ |
-| GET | `/api/apoderados/documento/{documento}` | Obtener por documento | ✅ |
-| GET | `/api/apoderados/parentesco/{parentesco}` | Obtener por parentesco | ✅ |
-| PUT | `/api/apoderados/{id}` | Actualizar apoderado | ✅ |
-| DELETE | `/api/apoderados/{id}` | Eliminar apoderado | ✅ |
+| GET | `/api/apoderados` | Listar apoderados | Si |
+| POST | `/api/apoderados` | Crear apoderado | Si |
+| GET | `/api/apoderados/{id}` | Obtener por ID | Si |
+| GET | `/api/apoderados/documento/{documento}` | Obtener por documento | Si |
+| GET | `/api/apoderados/parentesco/{parentesco}` | Obtener por parentesco | Si |
+| PUT | `/api/apoderados/{id}` | Actualizar apoderado | Si |
+| DELETE | `/api/apoderados/{id}` | Eliminar apoderado | Si |
 
-#### 📋 Perfiles
-| Método | Ruta | Descripción | Auth |
+#### Perfiles
+| Metodo | Ruta | Descripcion | Auth |
 |--------|------|-------------|------|
-| POST | `/api/perfiles` | Crear perfil | ✅ |
-| GET | `/api/perfiles/{id}` | Obtener por ID | ✅ |
-| GET | `/api/perfiles/user/{userId}` | Obtener por usuario | ✅ |
-| PUT | `/api/perfiles/{id}` | Actualizar perfil | ✅ |
-| DELETE | `/api/perfiles/{id}` | Eliminar perfil | ✅ |
+| POST | `/api/perfiles` | Crear perfil | Si |
+| GET | `/api/perfiles/{id}` | Obtener por ID | Si |
+| GET | `/api/perfiles/user/{userId}` | Obtener por usuario | Si |
+| PUT | `/api/perfiles/{id}` | Actualizar perfil | Si |
+| DELETE | `/api/perfiles/{id}` | Eliminar perfil | Si |
 
-#### 📚 Cursos
-| Método | Ruta | Descripción | Auth |
+#### Cursos
+| Metodo | Ruta | Descripcion | Auth |
 |--------|------|-------------|------|
-| GET | `/api/cursos` | Listar cursos | ✅ |
-| POST | `/api/cursos` | Crear curso | ✅ |
-| GET | `/api/cursos/{id}` | Obtener por ID | ✅ |
-| GET | `/api/cursos/anio/{anio}` | Obtener por año | ✅ |
-| PUT | `/api/cursos/{id}` | Actualizar curso | ✅ |
-| DELETE | `/api/cursos/{id}` | Eliminar curso | ✅ |
+| GET | `/api/cursos` | Listar cursos | Si |
+| POST | `/api/cursos` | Crear curso | Si |
+| GET | `/api/cursos/{id}` | Obtener por ID | Si |
+| GET | `/api/cursos/anio/{anio}` | Obtener por anio | Si |
+| PUT | `/api/cursos/{id}` | Actualizar curso | Si |
+| DELETE | `/api/cursos/{id}` | Eliminar curso | Si |
 
-#### 📝 Evaluaciones
-| Método | Ruta | Descripción | Auth |
+#### Evaluaciones
+| Metodo | Ruta | Descripcion | Auth |
 |--------|------|-------------|------|
-| GET | `/api/evaluaciones` | Listar evaluaciones | ✅ |
-| POST | `/api/evaluaciones` | Crear evaluación | ✅ |
-| GET | `/api/evaluaciones/{id}` | Obtener por ID | ✅ |
-| GET | `/api/evaluaciones/curso/{cursoId}` | Obtener por curso | ✅ |
-| PUT | `/api/evaluaciones/{id}` | Actualizar evaluación | ✅ |
-| DELETE | `/api/evaluaciones/{id}` | Eliminar evaluación | ✅ |
+| GET | `/api/evaluaciones` | Listar evaluaciones | Si |
+| POST | `/api/evaluaciones` | Crear evaluacion | Si |
+| GET | `/api/evaluaciones/{id}` | Obtener por ID | Si |
+| GET | `/api/evaluaciones/curso/{cursoId}` | Obtener por curso | Si |
+| PUT | `/api/evaluaciones/{id}` | Actualizar evaluacion | Si |
+| DELETE | `/api/evaluaciones/{id}` | Eliminar evaluacion | Si |
 
-#### 📊 Notas
-| Método | Ruta | Descripción | Auth |
+#### Notas
+| Metodo | Ruta | Descripcion | Auth |
 |--------|------|-------------|------|
-| GET | `/api/notas` | Listar notas | ✅ |
-| POST | `/api/notas` | Crear nota | ✅ |
-| GET | `/api/notas/{id}` | Obtener por ID | ✅ |
-| GET | `/api/notas/estudiante/{estudianteId}` | Obtener por estudiante | ✅ |
-| GET | `/api/notas/evaluacion/{evaluacionId}` | Obtener por evaluación | ✅ |
-| PUT | `/api/notas/{id}` | Actualizar nota | ✅ |
-| DELETE | `/api/notas/{id}` | Eliminar nota | ✅ |
+| GET | `/api/notas` | Listar notas | Si |
+| POST | `/api/notas` | Crear nota | Si |
+| GET | `/api/notas/{id}` | Obtener por ID | Si |
+| GET | `/api/notas/estudiante/{estudianteId}` | Obtener por estudiante | Si |
+| GET | `/api/notas/evaluacion/{evaluacionId}` | Obtener por evaluacion | Si |
+| PUT | `/api/notas/{id}` | Actualizar nota | Si |
+| DELETE | `/api/notas/{id}` | Eliminar nota | Si |
 
-## 🔧 Configuración
+## Configuracion
 
 ### Variables de Entorno
 
-| Variable | Default | Descripción |
+| Variable | Default | Descripcion |
 |----------|---------|-------------|
 | `SPRING_DATASOURCE_URL` | `jdbc:postgresql://localhost:5432/smartbook_db` | URL de PostgreSQL |
 | `SPRING_DATASOURCE_USERNAME` | `postgres` | Usuario BD |
 | `SPRING_DATASOURCE_PASSWORD` | `postgres` | Contraseña BD |
 | `JWT_SECRET` | `MiClaveSecreta...` | Clave para firmar JWT |
-| `CORS_ALLOWED_ORIGINS` | `*` | Orígenes permitidos |
+| `CORS_ALLOWED_ORIGINS` | `*` | Origines permitidos |
 
 ### Perfiles
 
-| Perfil | Descripción |
+| Perfil | Descripcion |
 |--------|-------------|
 | `default` | PostgreSQL local (smartbook_db) |
 | `dev` | PostgreSQL dev (smartbook_db_dev) con logs detallados |
 | `test` | PostgreSQL test (smartbook_test) |
-| `prod` | Producción con variables de entorno |
+| `prod` | Produccion con variables de entorno |
 
-## 🏥 Health Checks
+## Health Checks
 
 ```bash
-curl http://localhost:8080/actuator/health
-curl http://localhost:8080/actuator/info
-curl http://localhost:8080/actuator/metrics
+curl http://localhost:8083/actuator/health
+curl http://localhost:8083/actuator/info
+curl http://localhost:8083/actuator/metrics
 ```
 
-## 🔐 Autenticación con JWT
+## Autenticacion con JWT
 
 ### 1. Registrar un usuario
 ```json
 POST /api/auth/register
 {
   "nombre": "Juan",
-  "apellido": "Pérez",
+  "apellido": "Perez",
   "email": "juan@example.com",
   "password": "password123"
 }
@@ -225,7 +200,7 @@ Response:
 }
 ```
 
-### 2. Iniciar sesión
+### 2. Iniciar sesion
 ```json
 POST /api/auth/login
 {
@@ -236,7 +211,7 @@ POST /api/auth/login
 Response:
 {
   "token": "eyJhbGciOiJIUzI1NiJ9...",
-  "message": "Autenticación exitosa"
+  "message": "Autenticacion exitosa"
 }
 ```
 
@@ -246,28 +221,27 @@ Agrega el token en el header `Authorization`:
 Authorization: Bearer eyJhbGciOiJIUzI1NiJ9...
 ```
 
-## 🧪 Tests
+## Tests
 
 ```bash
 ./mvnw.cmd test
 ```
 
-## 📦 Estructura del Proyecto
+## Estructura del Proyecto
 
 ```
 src/main/java/org/smartbook/
-├── config/          # Configuración (Security, CORS, OpenAPI)
+├── config/          # Configuracion (Security, CORS, OpenAPI)
 ├── controller/      # REST Controllers
 ├── dto/             # Data Transfer Objects
 ├── exception/       # Manejo de errores
 ├── model/           # Entidades JPA
 ├── repository/      # Repositorios Spring Data
-└── service/         # Lógica de negocio
+└── service/         # Logica de negocio
 ```
 
-## 🛠️ Tecnologías
+## Tecnologias
 
-### Backend
 - Java 21 + Spring Boot 3.3.0
 - Spring Security + JWT
 - PostgreSQL + Flyway
@@ -275,15 +249,6 @@ src/main/java/org/smartbook/
 - OpenAPI/Swagger
 - Maven
 
-### Frontend
-- React 18 + TypeScript
-- Vite (build tool)
-- React Router 6
-- Axios + React Query
-- TailwindCSS
-- React Hook Form + Zod
-- Lucide Icons
-
-## 📝 Licencia
+## Licencia
 
 Apache 2.0

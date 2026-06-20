@@ -39,8 +39,8 @@ class AuthenticationServiceTest {
 
     @BeforeEach
     void setUp() {
-        when(jwtService.generateToken(anyString())).thenReturn("mock-jwt-token");
-        when(passwordEncoder.encode(anyString())).thenReturn("encoded-password");
+        lenient().when(jwtService.generateToken(anyString())).thenReturn("mock-jwt-token");
+        lenient().when(passwordEncoder.encode(anyString())).thenReturn("encoded-password");
     }
 
     @Test

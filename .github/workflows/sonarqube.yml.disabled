@@ -1,0 +1,19 @@
+# SonarQube workflow - DESACTIVADO
+# Para activarlo:
+# 1. Configura los secrets en GitHub Settings → Secrets → Actions:
+#    - SONAR_TOKEN
+#    - SONAR_HOST_URL
+#    - SONAR_PROJECT_KEY
+#    - SONAR_ORGANIZATION
+# 2. Renombra este archivo a sonarqube.yml
+
+name: CI SonarCloud (Disabled)
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build-and-analyze:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "SonarQube workflow is disabled. Configure secrets to enable."

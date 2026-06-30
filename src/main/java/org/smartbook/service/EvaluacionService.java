@@ -9,6 +9,7 @@ import org.smartbook.repository.EvaluacionRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -31,7 +32,7 @@ public class EvaluacionService {
         evaluacion.setNombre(evaluacionDTO.getNombre());
         evaluacion.setDescripcion(evaluacionDTO.getDescripcion());
         evaluacion.setCurso(curso);
-        evaluacion.setFecha(LocalDateTime.parse(evaluacionDTO.getFecha(), formatter));
+        evaluacion.setFecha(parseFecha(evaluacionDTO.getFecha()));
         evaluacion.setPuntajeMaximo(evaluacionDTO.getPuntajeMaximo());
         evaluacion.setCreatedAt(LocalDateTime.now());
 
@@ -72,11 +73,22 @@ public class EvaluacionService {
         evaluacion.setNombre(evaluacionDTO.getNombre());
         evaluacion.setDescripcion(evaluacionDTO.getDescripcion());
         evaluacion.setCurso(curso);
-        evaluacion.setFecha(LocalDateTime.parse(evaluacionDTO.getFecha(), formatter));
+        evaluacion.setFecha(parseFecha(evaluacionDTO.getFecha()));
         evaluacion.setPuntajeMaximo(evaluacionDTO.getPuntajeMaximo());
 
         Evaluacion updatedEvaluacion = evaluacionRepository.save(evaluacion);
         return convertToDTO(updatedEvaluacion);
+    }
+
+    private LocalDateTime parseFecha(String fecha) {
+        if (fecha == null || fecha.isBlank()) {
+            return LocalDateTime.now();
+        }
+        String valor = fecha.trim();
+        if (valor.length() <= 10) {
+            return LocalDate.parse(valor, DateTimeFormatter.ISO_LOCAL_DATE).atStartOfDay();
+        }
+        return LocalDateTime.parse(valor, formatter);
     }
 
     public void deleteEvaluacion(Integer id) {
